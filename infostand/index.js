@@ -20,7 +20,7 @@ $(function () {
             function standBuyer(p) {
                 return ({
                     area: 'Префектур' + p + ' ' + area[1] + ' административного округа',
-                    district: 'Управы район' + p + ' ' + district[0]
+                    district: 'Управ' + p + ' района ' + district[0]
                 })[district[1]];
             }
             $.each(templates, function (id, template) {
