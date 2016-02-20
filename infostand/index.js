@@ -1,13 +1,15 @@
 $(function () {
     var months = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
-    var templates = {
-        mgi: $('#mgi-template').text().trim(),
-        proc: $('#proc-template').text().trim()
-    };
     $.when(
-        $.getJSON('areas.js').then(Object),
-        $.getJSON('districts.js').then(Object)
-    ).done(function (areas, districts) {
+        $.getJSON('areas.json').then(Object),
+        $.getJSON('districts.json').then(Object),
+        $.get('mgi.txt').then(Object),
+        $.get('proc.txt').then(Object)
+    ).done(function (areas, districts, mgiTemplate, procTemplate) {
+        var templates = {
+            mgi: mgiTemplate,
+            proc: procTemplate
+        };
         areas.forEach(function (area) {
             $('#area').append($('<option></option>').text(area[0]));
         });
