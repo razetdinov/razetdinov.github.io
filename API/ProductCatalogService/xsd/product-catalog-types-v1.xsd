@@ -1,0 +1,1618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<xsd:schema xmlns:tns="http://schemas.opc.bssys.com/product/catalog/service/types/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cmn="http://schemas.opc.bssys.com/product/catalog/service/common/v1" targetNamespace="http://schemas.opc.bssys.com/product/catalog/service/types/v1" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+	<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/common/v1" schemaLocation="product-catalog-common-v1.xsd"/>
+	<xsd:complexType name="GetProgramsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения списка программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="blockNumber" type="cmn:BlockNumberType" default="1">
+				<xsd:annotation>
+					<xsd:documentation>Номер блока записей (в каждом блоке по 100 записей)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProgramsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetProgramsResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса получения списка программ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProgramsResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения списка программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="programs" type="tns:ProgramListType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cписок программ. Отсутствует, если получение информации по списку программ не удалось по причине ошибки, детализированной в result или при отсутствии программ.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProgramListType">
+		<xsd:annotation>
+			<xsd:documentation>Список программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="program" type="tns:ProgramType" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>Список программ, блок размером 100 записей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProgramType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о программе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="code">
+				<xsd:annotation>
+					<xsd:documentation>Код программы</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование программы</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="mixedCheck" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>Признак возможности использования смешанного чека по программе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCategoriesRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения списка категорий и характеристик по программе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="withCharacteristics" type="xsd:boolean" default="true" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак получения характеристик категорий</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="programCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код программы, в случае, если не указан, то запрос получения категорий, не принадлежащих программам.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="blockNumber" type="cmn:BlockNumberType" default="1">
+				<xsd:annotation>
+					<xsd:documentation>Номер блока записей (в каждом блоке по 100 записей)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCategoriesResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка категорий и характеристик по программе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetCategoriesResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса получения списка категорий и характеристик по программе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCategoriesResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения списка категорий и характеристик по программе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="categories" type="tns:CategoryListType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cписок категорий. Отсутствует, если получение информации по списку категорий и характеристик не удалось по причине ошибки, детализированной в result или при отсутствии категорий.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CategoryListType">
+		<xsd:annotation>
+			<xsd:documentation>Список категорий</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="program" type="tns:ProgramType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о программе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="category" type="tns:CategoryWithCharType" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>Список категорий, блок размером 100 записей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CategoryType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о категории</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="code">
+				<xsd:annotation>
+					<xsd:documentation>Код категории</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование категории</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CategoryWithCharType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о категории с характеристиками</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="tns:CategoryType">
+				<xsd:sequence>
+					<xsd:element name="characteristics" type="tns:CharacteristicListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Cписок характеристик. Отсутствует, если в запросе получения списка категорий и характеристик признак withCharacteristics=false или при отсутствии характеристик.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CharacteristicListType">
+		<xsd:annotation>
+			<xsd:documentation>Список характеристик категории</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="characteristic" type="tns:CharacteristicType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список характеристик категории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CharacteristicType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о характеристике категории</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование характеристики</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="type" type="cmn:CharacteristicTypeCode">
+				<xsd:annotation>
+					<xsd:documentation>Тип характеристики категории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="restriction" type="tns:ProdCharacteristicRestrictionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ограничение характеристики категории. Отсутствует, если нет ограничений.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProdCharacteristicRestrictionType">
+		<xsd:annotation>
+			<xsd:documentation>Ограничение характеристики категории или параметра товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>
+			<xsd:element name="stringRestrictionValue">
+				<xsd:annotation>
+					<xsd:documentation>Строковое ограничение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="2000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="booleanRestrictionValue">
+				<xsd:annotation>
+					<xsd:documentation>Логическое ограничение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:boolean"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="numberRestrictionValue" type="tns:NumberRestrictionType">
+				<xsd:annotation>
+					<xsd:documentation>Числовое ограничение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="stringArrayRestrictionValue" type="tns:StringArrayRestrictionType">
+				<xsd:annotation>
+					<xsd:documentation>Массив строковых ограничений</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="NumberRestrictionType">
+		<xsd:annotation>
+			<xsd:documentation>Числовое ограничение характеристики</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="numberFrom" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Нижняя граница</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="numberTo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Верхняя граница</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StringArrayRestrictionType">
+		<xsd:annotation>
+			<xsd:documentation>Массив строковых ограничений характеристики</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="stringValue" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Строковое ограничение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="2000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="productCode">
+				<xsd:annotation>
+					<xsd:documentation>Код товара ОПЦ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetProductResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса получения товара</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="product" type="tns:ProductExportType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Товар. Отсутствует, если получение информации по товару не удалось по причине ошибки, детализированной в result.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductExportType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о выгружаемом товаре</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="tns:ProductShortType">
+				<xsd:sequence>
+					<xsd:element name="opcCode">
+						<xsd:annotation>
+							<xsd:documentation>Код товара ОПЦ</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="36"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="partnerCode" type="cmn:PartnerProductCodeType">
+						<xsd:annotation>
+							<xsd:documentation>Код товара ТП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="parameters" type="tns:ProductParameterListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Характеристики товара. Отсутствует, если нет характеристик.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="services" type="tns:ProductServiceListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные услуги к товару. Отсутствует, если нет дополнительных услуг.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="processingInfo" type="tns:ProcessingChooseType">
+						<xsd:annotation>
+							<xsd:documentation>Информация о точках продажи для процессинга ОПЦ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="program" type="tns:ProgramType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация о программе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="category" type="tns:CategoryType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация о категории</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pictures" type="cmn:ImageListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Изображения товара</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessingInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Информация для процессинга ОПЦ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="partner" type="tns:PartnerType">
+				<xsd:annotation>
+					<xsd:documentation>Партнер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="merchant" type="tns:MerchantType">
+				<xsd:annotation>
+					<xsd:documentation>Поставщик услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="poi" type="tns:PoiType">
+				<xsd:annotation>
+					<xsd:documentation>Терминал</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProcessingChooseType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о точках продажи для процессинга ОПЦ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="partner" type="tns:PartnerType">
+				<xsd:annotation>
+					<xsd:documentation>Партнер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="merchants" type="tns:MerchantWithPoisListType">
+				<xsd:annotation>
+					<xsd:documentation>Поставщики</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductParameterListType">
+		<xsd:annotation>
+			<xsd:documentation>Список характеристик товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="parameter" type="tns:ProductParameterType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список характеристик товара</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductServiceListType">
+		<xsd:annotation>
+			<xsd:documentation>Список дополнительных услуг к товару</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="service" type="tns:ProductServiceType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список дополнительных услуг к товару</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductParameterType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о характеристике товара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="value">
+				<xsd:annotation>
+					<xsd:documentation>Значение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="2000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductServiceType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о дополнительной услуге к товару</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="opcCode">
+				<xsd:annotation>
+					<xsd:documentation>Код дополнительной услуги ОПЦ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="partnerCode">
+				<xsd:annotation>
+					<xsd:documentation>Код дополнительной услуги ТП</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование дополнительной услуги</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="description" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание дополнительной услуги</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="512"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="amount" type="cmn:AmountType">
+				<xsd:annotation>
+					<xsd:documentation>Цена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="cmn:CurrencyType">
+				<xsd:annotation>
+					<xsd:documentation>Буквенный код валюты ISO 4217, условная валюта.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindProductsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос поиска товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="categoryCode">
+				<xsd:annotation>
+					<xsd:documentation>Код категории товаров</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parameters" type="tns:FindParameterListType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cписок параметров товаров для поиска.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="blockNumber" type="cmn:BlockNumberType" default="1">
+				<xsd:annotation>
+					<xsd:documentation>Номер блока записей (в каждом блоке по 100 записей)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindParameterListType">
+		<xsd:annotation>
+			<xsd:documentation>Список параметров товаров для поиска</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="parameter" type="tns:FindParameterType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список параметров товаров для поиска</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindParameterType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о параметре для поиска товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="parameterName">
+				<xsd:annotation>
+					<xsd:documentation>Наименование параметра товара</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="restriction" type="tns:ProdCharacteristicRestrictionType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Ограничение параметра товара для поиска.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindProductsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос поиска товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:FindProductsResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса поиска товаров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindProductsResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса поиска товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="products" type="tns:ProductExportListType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cписок выгружаемых товаров. Отсутствует, если получение информации по товарам не удалось по причине ошибки, детализированной в result или при отсутствии товаров.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductExportListType">
+		<xsd:annotation>
+			<xsd:documentation>Cписок выгружаемых товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="product" type="tns:ProductExportShortType" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>Список товаров, блок размером 100 записей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="program" type="tns:ProgramType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о программе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="category" type="tns:CategoryType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Информация о категории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductShortType">
+		<xsd:annotation>
+			<xsd:documentation>Краткая информация о товаре</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование товара</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="description" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание товара</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="512"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="amount" type="cmn:AmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Цена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="cmn:CurrencyType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Буквенный код валюты ISO 4217, условная валюта.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductExportShortType">
+		<xsd:annotation>
+			<xsd:documentation>Краткая информация о выгружаемом товаре</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="tns:ProductShortType">
+				<xsd:sequence>
+					<xsd:element name="opcCode">
+						<xsd:annotation>
+							<xsd:documentation>Код товара ОПЦ</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="36"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="picture" type="cmn:ImageType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Изображение товара</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RegisterOrderRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос регистрации заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="orderInfo" type="tns:RegisterOrderInfoType">
+				<xsd:annotation>
+					<xsd:documentation>Информация о заказе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="ds:Signature">
+				<xsd:annotation>
+					<xsd:documentation>Электронная подпись транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RegisterOrderResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос регистрации заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:RegisterOrderResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса регистрации заказа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RegisterOrderInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о заказе при регистрации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="partnerOrderId">
+				<xsd:annotation>
+					<xsd:documentation>Код заказа в системе Партнера</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="contactName">
+				<xsd:annotation>
+					<xsd:documentation>Контактное лицо</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="phoneNumber">
+				<xsd:annotation>
+					<xsd:documentation>Контактный телефон</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="email" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контактный электронный адрес</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+						<xsd:pattern value="(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,10})"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="deliveryAddress" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес доставки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="512"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="deliveryDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата доставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RegisterOrderResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса регистрации заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="orderId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код заказа в ОПЦ. Отсутствует, если регистрация заказа не удалась по причине ошибки, детализированной в result.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetOrderStatusRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения состояния заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="orderId">
+				<xsd:annotation>
+					<xsd:documentation>Код заказа в ОПЦ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetOrderStatusResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения состояния заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetOrderStatusResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса получения состояния заказа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetOrderStatusResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения состояния заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="order" type="tns:OrderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заказ. Отсутствует, если получение информации по заказу не удалось по причине ошибки, детализированной в result.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о заказе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="tns:RegisterOrderInfoType">
+				<xsd:sequence>
+					<xsd:element name="orderId">
+						<xsd:annotation>
+							<xsd:documentation>Код заказа в ОПЦ</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="36"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="orderDate" type="xsd:dateTime">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время создания заказа в ОПЦ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="orderStatus" type="tns:OrderStatusType">
+						<xsd:annotation>
+							<xsd:documentation>Статус заказа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="products" type="tns:TxProductListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Cписок товаров и услуг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OrderStatusType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о статусе заказа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="code">
+				<xsd:annotation>
+					<xsd:documentation>Код</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TxProductListType">
+		<xsd:annotation>
+			<xsd:documentation>Cписок товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="processingInfo" type="tns:ProcessingInfoType">
+				<xsd:annotation>
+					<xsd:documentation>Информация для процессинга ОПЦ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="txProduct" type="tns:TxProductType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TxProductType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о товаре или услуге</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="partnerCode">
+				<xsd:annotation>
+					<xsd:documentation>Код товара или услуги ТП</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="500"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="amount" type="cmn:AmountType">
+				<xsd:annotation>
+					<xsd:documentation>Цена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="currency" type="cmn:CurrencyType">
+				<xsd:annotation>
+					<xsd:documentation>Буквенный код валюты ISO 4217, условная валюта.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="quantity" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество единиц</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:fractionDigits value="17"/>
+						<xsd:totalDigits value="18"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="unitPrice" type="cmn:AmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Цена единицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="program" type="tns:ProgramType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о программе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="category" type="tns:CategoryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о категории</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetApprovedProductsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения утвержденных товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="categoryCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код категории товаров, в случае, если не указана, то запрос получения всех утвержденных товаров.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="70"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="blockNumber" type="cmn:BlockNumberType" default="1">
+				<xsd:annotation>
+					<xsd:documentation>Номер блока записей (в каждом блоке по 100 записей)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetApprovedProductsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения утвержденных товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetApprovedProductsResultType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса получения утвержденных товаров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetApprovedProductsResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения утвержденных товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="productCodes" type="tns:ProductCodeList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов утвержденных товаров. Отсутствует, если получение информации по заказу не удалось по причине ошибки, детализированной в result или при отсутствии утвержденных товаров.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductCodeList">
+		<xsd:annotation>
+			<xsd:documentation>Список идентификаторов товаров</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="code" type="cmn:PartnerProductCodeType" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов, блок размером 100 записей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ImportCatalogRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="importCatalog" type="tns:ImportCatalogType">
+				<xsd:annotation>
+					<xsd:documentation>Информация о каталоге товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ImportCatalogResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса импорта каталога товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ImportCatalogType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о каталоге товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="products" type="tns:ProductImportListType" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Cписок загружаемых товаров, услуг, доп. услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductCatalogStatusRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения статуса импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestUUID" type="cmn:UUID">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса импорта каталога товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductCatalogStatusResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения статуса импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="getProductCatalogStatusResult" type="tns:GetProductCatalogStatusResultType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetProductCatalogStatusResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения статуса импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="cmn:ResultResponseType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Результат обработки запроса импорта каталога товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="actualUUID" type="cmn:UUID" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса импорта актуального каталога товаров и услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductImportListType">
+		<xsd:annotation>
+			<xsd:documentation>Cписок загружаемых товаров, услуг, доп. услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="product" type="tns:ProductImportType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Загружаемый товар, услуга, доп. услуга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductImportType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о загружаемом товаре, услуге, доп. услуги</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="tns:ProductShortType">
+				<xsd:sequence>
+					<xsd:element name="productType" type="cmn:ProductType">
+						<xsd:annotation>
+							<xsd:documentation>Тип продукта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="partnerCode" type="cmn:PartnerProductCodeType">
+						<xsd:annotation>
+							<xsd:documentation>Код товара/услуги ТП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="category" type="tns:CategoryType">
+						<xsd:annotation>
+							<xsd:documentation>Информация о категории</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="parameters" type="tns:ProductParameterListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Характеристики товара/услуги.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pictures" type="cmn:ImageListType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Изображения товара/услуги</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="GetPartnersRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение списка поставщиков по социальным программам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="requestHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="programCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код программы, в случае, если не указан, то запрос получения поставщиков по всем соц. программам.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="blockNumber" type="cmn:BlockNumberType" default="1">
+				<xsd:annotation>
+					<xsd:documentation>Номер блока записей (в каждом блоке по 100 записей)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetPartnersResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка поставщиков по социальным программам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="responseHeader" type="cmn:HeaderType">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок ответа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestHeader" type="cmn:HeaderType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заголовок запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responseResult" type="tns:GetPartnersResultType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetPartnersResultType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки запроса получения списка поставщиков по соц. программам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="result" type="cmn:ResultResponseType"/>
+			<xsd:element name="partners" type="tns:PartnerListType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartnerListType">
+		<xsd:annotation>
+			<xsd:documentation>Список поставщиков в разрезе социальных программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="partnerWithPrograms" type="tns:PartnerWithProgramsType" maxOccurs="100"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartnerWithProgramsType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о поставщике в разрезе соц. программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="merchantInfo" type="tns:ProcessingInfoType">
+				<xsd:annotation>
+					<xsd:documentation>Информация о поставщике услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="programs" type="tns:ProgramPartnerListType">
+				<xsd:annotation>
+					<xsd:documentation>Список программ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProgramPartnerListType">
+		<xsd:annotation>
+			<xsd:documentation>Список программ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="program" type="tns:ProgramType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список социальных программ поставщика</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartnerType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о партнере</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="11"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="shortName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MerchantType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о поставщике услуг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="shortName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PoiType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о терминале</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="shortName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MerchantWithPoisListType">
+		<xsd:annotation>
+			<xsd:documentation>Список поставщиков с терминалами</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="merchant" type="tns:MerchantWithPoisType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MerchantWithPoisType">
+		<xsd:annotation>
+			<xsd:documentation>Информация о терминалах поставщика</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="merchant" type="tns:MerchantType">
+				<xsd:annotation>
+					<xsd:documentation>Поставщик</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="pois" type="tns:PoiListType">
+				<xsd:annotation>
+					<xsd:documentation>Терминалы поставшика</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PoiListType">
+		<xsd:annotation>
+			<xsd:documentation>Список терминалов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="poi" type="tns:PoiType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

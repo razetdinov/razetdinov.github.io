@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cmn="http://schemas.bssys.com/iso20022/service/common/v1" xmlns:acc-auth-req="urn:iso:std:iso:20022:tech:xsd:caaa.001.001.01" xmlns:acc-auth-resp="urn:iso:std:iso:20022:tech:xsd:caaa.002.001.01" xmlns:acc-cancel-req="urn:iso:std:iso:20022:tech:xsd:caaa.005.001.01" xmlns:acc-cancel-resp="urn:iso:std:iso:20022:tech:xsd:caaa.006.001.01" xmlns:acc-batch-req="urn:iso:std:iso:20022:tech:xsd:caaa.011.001.01" xmlns:acc-batch-resp="urn:iso:std:iso:20022:tech:xsd:caaa.012.001.01" xmlns:tns="http://schemas.bssys.com/iso20022/service/messages/v1" targetNamespace="http://schemas.bssys.com/iso20022/service/messages/v1" elementFormDefault="qualified">
+	<xsd:import namespace="http://schemas.bssys.com/iso20022/service/common/v1" schemaLocation="../iso20022-common-v1.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.001.001.01" schemaLocation="caaa.001.001.01.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.002.001.01" schemaLocation="caaa.002.001.01.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.005.001.01" schemaLocation="caaa.005.001.01.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.006.001.01" schemaLocation="caaa.006.001.01.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.011.001.01" schemaLocation="caaa.011.001.01.xsd"/>
+	<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.012.001.01" schemaLocation="caaa.012.001.01.xsd"/>
+	<xsd:element name="AcceptorAuthorisationRequest" type="acc-auth-req:Document">
+		<xsd:annotation>
+			<xsd:documentation>Запрос авторизации по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptorAuthorisationResponse" type="acc-auth-resp:Document">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос авторизации по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptorCancellationRequest" type="acc-cancel-req:Document">
+		<xsd:annotation>
+			<xsd:documentation>Запрос отмены авторизации по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptorCancellationResponse" type="acc-cancel-resp:Document">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос отмены авторизации по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptorBatchTransferRequest" type="acc-batch-req:Document">
+		<xsd:annotation>
+			<xsd:documentation>Запрос отсылки транзакций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptorBatchTransferResponse" type="acc-batch-resp:Document">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос отсылки транзакций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="pingResponse" type="cmn:PingResultCode">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос мониторинга сервиса</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

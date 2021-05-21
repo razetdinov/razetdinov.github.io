@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by test (testCo) -->
+<xsd:schema xmlns:tns="http://schemas.opc.bssys.com/product/catalog/service/messages/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cmn="http://schemas.opc.bssys.com/product/catalog/service/common/v1" xmlns:sts="http://schemas.opc.bssys.com/product/catalog/service/types/v1" targetNamespace="http://schemas.opc.bssys.com/product/catalog/service/messages/v1" elementFormDefault="qualified">
+	<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/types/v1" schemaLocation="product-catalog-types-v1.xsd"/>
+	<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/common/v1" schemaLocation="product-catalog-common-v1.xsd"/>
+	<xsd:element name="getProgramsRequest" type="sts:GetProgramsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения списка программ</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getProgramsResponse" type="sts:GetProgramsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка программ</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getCategoriesRequest" type="sts:GetCategoriesRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения списка категорий и характеристик по программе</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getCategoriesResponse" type="sts:GetCategoriesResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка категорий и характеристик по программе</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getProductRequest" type="sts:GetProductRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения товара</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getProductResponse" type="sts:GetProductResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения товара</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="findProductsRequest" type="sts:FindProductsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос поиска товаров</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="findProductsResponse" type="sts:FindProductsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос поиска товаров</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="registerOrderRequest" type="sts:RegisterOrderRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос регистрации заказа</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="registerOrderResponse" type="sts:RegisterOrderResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос регистрации заказа</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getOrderStatusRequest" type="sts:GetOrderStatusRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения состояния заказа</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getOrderStatusResponse" type="sts:GetOrderStatusResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения состояния заказа</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getApprovedProductsRequest" type="sts:GetApprovedProductsRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения утвержденных товаров</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getApprovedProductsResponse" type="sts:GetApprovedProductsResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения утвержденных товаров</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="pingResponse" type="cmn:PingResultCode">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос мониторинга сервиса</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getPartnersRequest" type="sts:GetPartnersRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение списка поставщиков по социальным программам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getPartnersResponse" type="sts:GetPartnersResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения списка поставщиков по социальным программам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getProductCatalogStatusRequest" type="sts:GetProductCatalogStatusRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение статуса импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="getProductCatalogStatusResponse" type="sts:GetProductCatalogStatusResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения статуса импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

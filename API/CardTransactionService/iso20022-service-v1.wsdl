@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.bssys.com/iso20022/service/v1" xmlns:cmn="http://schemas.bssys.com/iso20022/service/common/v1" xmlns:caaa-mess="http://schemas.bssys.com/iso20022/service/messages/v1" targetNamespace="http://schemas.bssys.com/iso20022/service/v1">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://schemas.bssys.com/iso20022/service/v1">
+			<xsd:import namespace="http://schemas.bssys.com/iso20022/service/common/v1" schemaLocation="xsd/iso20022-common-v1.xsd"/>
+			<xsd:import namespace="http://schemas.bssys.com/iso20022/service/messages/v1" schemaLocation="xsd/caaa/caaa-messages-v1.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.001.001.01" schemaLocation="xsd/caaa/caaa.001.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.002.001.01" schemaLocation="xsd/caaa/caaa.002.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.003.001.01" schemaLocation="xsd/caaa/caaa.003.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.004.001.01" schemaLocation="xsd/caaa/caaa.004.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.005.001.01" schemaLocation="xsd/caaa/caaa.005.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.006.001.01" schemaLocation="xsd/caaa/caaa.006.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.007.001.01" schemaLocation="xsd/caaa/caaa.007.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.008.001.01" schemaLocation="xsd/caaa/caaa.008.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.009.001.01" schemaLocation="xsd/caaa/caaa.009.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.010.001.01" schemaLocation="xsd/caaa/caaa.010.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.011.001.01" schemaLocation="xsd/caaa/caaa.011.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.012.001.01" schemaLocation="xsd/caaa/caaa.012.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.013.001.01" schemaLocation="xsd/caaa/caaa.013.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.014.001.01" schemaLocation="xsd/caaa/caaa.014.001.01.xsd"/>
+			<xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:caaa.015.001.01" schemaLocation="xsd/caaa/caaa.015.001.01.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="faultResponse">
+		<wsdl:part name="fault" element="cmn:fault"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorAuthorisationRequest">
+		<wsdl:part name="AcceptorAuthorisationRequest" element="caaa-mess:AcceptorAuthorisationRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorAuthorisationResponse">
+		<wsdl:part name="AcceptorAuthorisationResponse" element="caaa-mess:AcceptorAuthorisationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorCancellationRequest">
+		<wsdl:part name="AcceptorCancellationRequest" element="caaa-mess:AcceptorCancellationRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorCancellationResponse">
+		<wsdl:part name="AcceptorCancellationResponse" element="caaa-mess:AcceptorCancellationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorBatchTransferRequest">
+		<wsdl:part name="AcceptorBatchTransferRequest" element="caaa-mess:AcceptorBatchTransferRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AcceptorBatchTransferResponse">
+		<wsdl:part name="AcceptorBatchTransferResponse" element="caaa-mess:AcceptorBatchTransferResponse"/>
+	</wsdl:message>
+	<wsdl:message name="pingRequest">
+	</wsdl:message>
+	<wsdl:message name="pingResponse">
+		<wsdl:part name="pingResponse" element="caaa-mess:pingResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="CardTransactionServiceInterface">
+		<wsdl:operation name="acceptorAuthorisation">
+			<wsdl:documentation>Авторизация средств по карте</wsdl:documentation>
+			<wsdl:input message="tns:AcceptorAuthorisationRequest"/>
+			<wsdl:output message="tns:AcceptorAuthorisationResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="acceptorCancellation">
+			<wsdl:documentation>Отмена авторизации по карте</wsdl:documentation>
+			<wsdl:input message="tns:AcceptorCancellationRequest"/>
+			<wsdl:output message="tns:AcceptorCancellationResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="acceptorBatchTransfer">
+			<wsdl:documentation>Передача списка транзакций</wsdl:documentation>
+			<wsdl:input message="tns:AcceptorBatchTransferRequest"/>
+			<wsdl:output message="tns:AcceptorBatchTransferResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="ping">
+			<wsdl:documentation>Операция мониторинга сервиса</wsdl:documentation>
+			<wsdl:input message="tns:pingRequest"/>
+			<wsdl:output message="tns:pingResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CardTransactionServiceBinding" type="tns:CardTransactionServiceInterface">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="acceptorAuthorisation">
+			<soap:operation soapAction="urn:acceptorAuthorisation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="acceptorCancellation">
+			<soap:operation soapAction="urn:acceptorCancellation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="acceptorBatchTransfer">
+			<soap:operation soapAction="urn:acceptorBatchTransfer" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ping">
+			<soap:operation soapAction="ping" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CardTransactionService">
+		<wsdl:port name="CardTransactionServicePort" binding="tns:CardTransactionServiceBinding">
+			<soap:address location="ENDPOINT_URL"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.opc.bssys.com/product/catalog/service/common/v1" targetNamespace="http://schemas.opc.bssys.com/product/catalog/service/common/v1" elementFormDefault="qualified">
+	<xsd:element name="fault" type="tns:FaultType">
+		<xsd:annotation>
+			<xsd:documentation>Ошибка приложения</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FaultType">
+		<xsd:annotation>
+			<xsd:documentation>Описание ошибки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="errorCode">
+				<xsd:annotation>
+					<xsd:documentation>Код ошибки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="errorName">
+				<xsd:annotation>
+					<xsd:documentation>Краткое, программно-зависимое наименование ошибки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="errorMessage" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Развернутое пояснение об ошибке, с возможным разъяснением о причинах ошибки и методах ее устранения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="512"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="UUID">
+		<xsd:annotation>
+			<xsd:documentation>Универсальный уникальный идентификатор (UUID - Universally Unique Identifier) RFC 4122</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="36"/>
+			<xsd:pattern value="([0-9]|[a-f]|[A-F]){8}(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){4})(-([0-9]|[a-f]|[A-F]){12})"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="InitiatorType">
+		<xsd:annotation>
+			<xsd:documentation>Отправитель</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор отправителя</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="shortName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Краткое наименование отправителя</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="HeaderType">
+		<xsd:annotation>
+			<xsd:documentation>Заголовок запроса/ответа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="createDateTime">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время создания </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sender" type="tns:InitiatorType">
+				<xsd:annotation>
+					<xsd:documentation>Отправитель</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="initiator" type="tns:InitiatorType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Инициатор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="Id" type="tns:UUID" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Идентификатор  заголовка</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:simpleType name="URL">
+		<xsd:annotation>
+			<xsd:documentation>Адрес страницы (URL - Uniform Resource Locator)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:maxLength value="500"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ResultResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Результат обработки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="resultCode">
+				<xsd:annotation>
+					<xsd:documentation>Код сообщения о результате обработки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="resultText" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текст сообщения о результате обработки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="512"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="PingResultCode">
+		<xsd:annotation>
+			<xsd:documentation>Результат мониторинга сервиса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="OK">
+				<xsd:annotation>
+					<xsd:documentation>Успешно</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ERROR">
+				<xsd:annotation>
+					<xsd:documentation>Ошибка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BlockNumberType">
+		<xsd:annotation>
+			<xsd:documentation>Последовательный номер блока (начиная с 1)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CharacteristicTypeCode">
+		<xsd:annotation>
+			<xsd:documentation>Тип характеристики категории</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="STRING">
+				<xsd:annotation>
+					<xsd:documentation>Строковый тип</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NUMBER">
+				<xsd:annotation>
+					<xsd:documentation>Числовой тип</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BOOLEAN">
+				<xsd:annotation>
+					<xsd:documentation>Логический тип</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AmountType">
+		<xsd:annotation>
+			<xsd:documentation>Сумма</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="0"/>
+			<xsd:totalDigits value="18"/>
+			<xsd:fractionDigits value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CurrencyType">
+		<xsd:annotation>
+			<xsd:documentation>Буквенный код валюты ISO 4217, условная валюта.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z]{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ImageType">
+		<xsd:annotation>
+			<xsd:documentation>Изображение</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="binaryData">
+				<xsd:annotation>
+					<xsd:documentation>Изображение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:base64Binary"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="mimeType" type="tns:MimeType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>MIME-тип</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="ImageOrderType">
+		<xsd:annotation>
+			<xsd:documentation>Изображение с порядковым номером</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="binaryData">
+				<xsd:annotation>
+					<xsd:documentation>Изображение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:base64Binary"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="mimeType" type="tns:MimeType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>MIME-тип</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="order" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Порядковый номер</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:integer">
+					<xsd:minInclusive value="1"/>
+					<xsd:maxInclusive value="100"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="ImageListType">
+		<xsd:annotation>
+			<xsd:documentation>Изображения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="image" type="tns:ImageOrderType" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>Список изображений</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="MimeType">
+		<xsd:annotation>
+			<xsd:documentation>MIME-тип</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="image/gif">
+				<xsd:annotation>
+					<xsd:documentation>GIF</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="image/jpeg">
+				<xsd:annotation>
+					<xsd:documentation>JPEG</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="image/png">
+				<xsd:annotation>
+					<xsd:documentation>PNG</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PartnerProductCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Код товара ТП</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="70"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ProductType">
+		<xsd:annotation>
+			<xsd:documentation>Тип продукта</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PRODUCT">
+				<xsd:annotation>
+					<xsd:documentation>Товар</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SERVICE">
+				<xsd:annotation>
+					<xsd:documentation>Услуга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ADD_SERVICE">
+				<xsd:annotation>
+					<xsd:documentation>Доп. услуга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

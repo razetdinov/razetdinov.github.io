@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.bssys.com/iso20022/service/common/v1" targetNamespace="http://schemas.bssys.com/iso20022/service/common/v1" elementFormDefault="qualified">
+	<xsd:element name="fault" type="tns:FaultType">
+		<xsd:annotation>
+			<xsd:documentation>Ошибка приложения</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FaultType">
+		<xsd:annotation>
+			<xsd:documentation>Описание ошибки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="errorCode" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Код ошибки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorName" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Краткое, программно-зависимое наименование ошибки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorMessage" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Развернутое пояснение об ошибке, с возможным разъяснением о причинах ошибки и методах ее устранения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="PingResultCode">
+		<xsd:annotation>
+			<xsd:documentation>Результат мониторинга сервиса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="OK">
+				<xsd:annotation>
+					<xsd:documentation>Успешно</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ERR">
+				<xsd:annotation>
+					<xsd:documentation>Ошибка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

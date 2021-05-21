@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by test (testCo) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.opc.bssys.com/product/catalog/service/v1" xmlns:cmn="http://schemas.opc.bssys.com/product/catalog/service/common/v1" xmlns:pc-mess="http://schemas.opc.bssys.com/product/catalog/service/messages/v1" xmlns:ns="http://schemas.opc.bssys.com/product/catalog/service/types/v1" xmlns:ns1="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://schemas.opc.bssys.com/product/catalog/service/v1">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://schemas.opc.bssys.com/account/service/v1">
+			<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/common/v1" schemaLocation="xsd/product-catalog-common-v1.xsd"/>
+			<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/messages/v1" schemaLocation="xsd/product-catalog-messages-v1.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="faultResponse">
+		<wsdl:part name="fault" element="cmn:fault"/>
+	</wsdl:message>
+	<wsdl:message name="getProgramsRequest">
+		<wsdl:part name="getProgramsRequest" element="pc-mess:getProgramsRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getProgramsResponse">
+		<wsdl:part name="getProgramsResponse" element="pc-mess:getProgramsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getCategoriesRequest">
+		<wsdl:part name="getCategoriesRequest" element="pc-mess:getCategoriesRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getCategoriesResponse">
+		<wsdl:part name="getCategoriesResponse" element="pc-mess:getCategoriesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getProductRequest">
+		<wsdl:part name="getProductRequest" element="pc-mess:getProductRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getProductResponse">
+		<wsdl:part name="getProductResponse" element="pc-mess:getProductResponse"/>
+	</wsdl:message>
+	<wsdl:message name="findProductsRequest">
+		<wsdl:part name="findProductsRequest" element="pc-mess:findProductsRequest"/>
+	</wsdl:message>
+	<wsdl:message name="findProductsResponse">
+		<wsdl:part name="findProductsResponse" element="pc-mess:findProductsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="registerOrderRequest">
+		<wsdl:part name="registerOrderRequest" element="pc-mess:registerOrderRequest"/>
+	</wsdl:message>
+	<wsdl:message name="registerOrderResponse">
+		<wsdl:part name="registerOrderResponse" element="pc-mess:registerOrderResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getOrderStatusRequest">
+		<wsdl:part name="getOrderStatusRequest" element="pc-mess:getOrderStatusRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getOrderStatusResponse">
+		<wsdl:part name="getOrderStatusResponse" element="pc-mess:getOrderStatusResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getApprovedProductsRequest">
+		<wsdl:part name="getApprovedProductsRequest" element="pc-mess:getApprovedProductsRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getApprovedProductsResponse">
+		<wsdl:part name="getApprovedProductsResponse" element="pc-mess:getApprovedProductsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getPartnersRequest">
+		<wsdl:part name="getPartnersRequest" element="pc-mess:getPartnersRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getPartnersResponse">
+		<wsdl:part name="getPartnersResponse" element="pc-mess:getPartnersResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getProductCatalogStatusRequest">
+		<wsdl:part name="getProductCatalogStatusRequest" element="pc-mess:getProductCatalogStatusRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getProductCatalogStatusResponse">
+		<wsdl:part name="getProductCatalogStatusResponse" element="pc-mess:getProductCatalogStatusResponse"/>
+	</wsdl:message>
+	<wsdl:message name="pingRequest">
+	</wsdl:message>
+	<wsdl:message name="pingResponse">
+		<wsdl:part name="pingResponse" element="pc-mess:pingResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ProductCatalogServiceInterface">
+		<wsdl:operation name="getPrograms">
+			<wsdl:documentation>Операция получения списка программ</wsdl:documentation>
+			<wsdl:input message="tns:getProgramsRequest"/>
+			<wsdl:output message="tns:getProgramsResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCategories">
+			<wsdl:documentation>Операция получения списка категорий и характеристик по программе</wsdl:documentation>
+			<wsdl:input message="tns:getCategoriesRequest"/>
+			<wsdl:output message="tns:getCategoriesResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getProduct">
+			<wsdl:documentation>Операция получения товара</wsdl:documentation>
+			<wsdl:input message="tns:getProductRequest"/>
+			<wsdl:output message="tns:getProductResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="findProducts">
+			<wsdl:documentation>Операция поиска товаров</wsdl:documentation>
+			<wsdl:input message="tns:findProductsRequest"/>
+			<wsdl:output message="tns:findProductsResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="registerOrder">
+			<wsdl:documentation>Операция регистрации заказа</wsdl:documentation>
+			<wsdl:input message="tns:registerOrderRequest"/>
+			<wsdl:output message="tns:registerOrderResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getOrderStatus">
+			<wsdl:documentation>Операция получения состояния заказа</wsdl:documentation>
+			<wsdl:input message="tns:getOrderStatusRequest"/>
+			<wsdl:output message="tns:getOrderStatusResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getApprovedProducts">
+			<wsdl:documentation>Операция получения утвержденных товаров</wsdl:documentation>
+			<wsdl:input message="tns:getApprovedProductsRequest"/>
+			<wsdl:output message="tns:getApprovedProductsResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getPartners">
+			<wsdl:documentation>Операция получения списка поставщиков по программе</wsdl:documentation>
+			<wsdl:input message="tns:getPartnersRequest"/>
+			<wsdl:output message="tns:getPartnersResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getProductCatalogStatus">
+			<wsdl:documentation>Операция получения статуса импорта каталога товаров и услуг</wsdl:documentation>
+			<wsdl:input message="tns:getProductCatalogStatusRequest"/>
+			<wsdl:output message="tns:getProductCatalogStatusResponse"/>
+			<wsdl:fault name="fault" message="tns:faultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="ping">
+			<wsdl:documentation>Операция мониторинга сервиса</wsdl:documentation>
+			<wsdl:input message="tns:pingRequest"/>
+			<wsdl:output message="tns:pingResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ProductCatalogServiceBinding" type="tns:ProductCatalogServiceInterface">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getPrograms">
+			<soap:operation soapAction="getPrograms" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getCategories">
+			<soap:operation soapAction="getCategories" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getProduct">
+			<soap:operation soapAction="getProduct" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="findProducts">
+			<soap:operation soapAction="findProducts" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="registerOrder">
+			<soap:operation soapAction="registerOrder" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getOrderStatus">
+			<soap:operation soapAction="getOrderStatus" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getApprovedProducts">
+			<soap:operation soapAction="getApprovedProducts" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getPartners">
+			<soap:operation soapAction="getPartners" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getProductCatalogStatus">
+			<soap:operation soapAction="getProductCatalogStatus" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ping">
+			<soap:operation soapAction="ping" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ProductCatalogService">
+		<wsdl:port name="ProductCatalogServicePort" binding="tns:ProductCatalogServiceBinding">
+			<soap:address location="ENDPOINT_URL"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

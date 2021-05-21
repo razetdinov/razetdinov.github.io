@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- created with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Alexander Unucheck (BSS Engineering) -->
+<xsd:schema xmlns:tns="http://schemas.opc.bssys.com/product/catalog/file/messages/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cmn="http://schemas.opc.bssys.com/product/catalog/service/common/v1" xmlns:sts="http://schemas.opc.bssys.com/product/catalog/service/types/v1" targetNamespace="http://schemas.opc.bssys.com/product/catalog/file/messages/v1" elementFormDefault="qualified">
+	<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/types/v1" schemaLocation="product-catalog-types-v1.xsd"/>
+	<xsd:import namespace="http://schemas.opc.bssys.com/product/catalog/service/common/v1" schemaLocation="product-catalog-common-v1.xsd"/>
+	<xsd:element name="importCatalogRequest" type="sts:ImportCatalogRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="importCatalogResponse" type="sts:ImportCatalogResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос импорта каталога товаров и услуг</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
